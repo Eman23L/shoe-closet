@@ -3,54 +3,129 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About - Shoe Closet</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2712%27 fill=%27%23b9400f%27/%3E%3C/svg%3E">
+  <title>About - Shoe Finder</title>
+  <meta name="description" content="How Shoe Finder works and how to get in touch.">
+  <meta property="og:title" content="About Shoe Finder">
+  <meta property="og:description" content="How Shoe Finder works and how to get in touch.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/shoe-1.svg">
   <meta name="theme-color" content="#faf8f5">
-  <meta name="description" content="How Shoe Closet works and how to get in touch.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23b9400f%27/%3E%3Cpath d=%27M7 21v-7c0-1 1-2 2-2l4 .5c2 2 4 3 7 3.5l4 1c2 .5 2 3 0 4z%27 fill=%27%23fff%27/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
+
   <header class="site-header">
-    <nav class="nav">
-      <a class="logo" href="index.html">Shoe Closet</a>
-      <ul>
-        <li><a class="link" href="index.html">Home</a></li>
-        <li><a class="link" href="shop.html">Shop</a></li>
-        <li><a class="link" href="sell.html">Sell</a></li>
-        <li><a class="link active" href="about.html">About</a></li>
+    <nav class="nav container" aria-label="Main">
+      <a class="logo" href="index.html">
+        <span class="logo-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17v-6c0-1 .8-1.7 1.8-1.6l3.6.4c1.6 1.8 3.6 2.8 6 3.2l4.6.9c2 .4 2.4 3.1.4 3.1z"/></svg></span>
+        Shoe Finder
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="sell.html">Sell</a></li>
+        <li><a href="about.html" aria-current="page">About</a></li>
+        <li><a class="btn" href="shop.html">Shop now</a></li>
       </ul>
     </nav>
   </header>
 
-  <main class="wrap">
-    <h1 class="page-title">About Shoe Closet</h1>
-    <p>Shoe Closet gives good shoes a second life. We list pre-loved and brand new pairs at friendly prices, so you can find your next favourite pair without paying full price.</p>
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <p class="crumbs"><a href="index.html">Home</a> / About</p>
+        <h1>About Shoe Finder</h1>
+        <p>Shoe Finder gives good shoes a second life. We list pre-loved and brand new pairs at friendly prices, so you can find your next favourite pair without paying full price.</p>
+      </div>
+    </section>
 
-    <h2 class="section">How it works</h2>
-    <div class="steps">
-      <div class="step"><span class="num">1</span><h3>Browse</h3><p>Look through the shop and filter by brand, size, price and condition.</p></div>
-      <div class="step"><span class="num">2</span><h3>Pick your pair</h3><p>Open a shoe to see details, choose your size and add it to your basket.</p></div>
-      <div class="step"><span class="num">3</span><h3>Sell yours</h3><p>Got shoes you no longer wear? Use the Sell page to list them.</p></div>
-    </div>
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Simple from start to finish</span>
+            <h2>How it works</h2>
+          </div>
+        </div>
+        <div class="steps reveal">
+          <div class="step"><span class="num">01</span><h3>Browse</h3><p>Look through the shop and filter by brand, size, price and condition.</p></div>
+          <div class="step"><span class="num">02</span><h3>Pick your pair</h3><p>Open a shoe to see details, choose your size and add it to your basket.</p></div>
+          <div class="step"><span class="num">03</span><h3>Sell yours</h3><p>Got shoes you no longer wear? Use the Sell page to list them.</p></div>
+        </div>
+      </div>
+    </section>
 
-    <h2 class="section">Contact</h2>
-    <p>Email: hello@example.com (placeholder, to be replaced)</p>
+    <section class="section sand">
+      <div class="container split">
+        <div class="reveal">
+          <span class="eyebrow">Our promise</span>
+          <h2 class="title-lg">Every pair checked before it is listed</h2>
+          <ul class="checks">
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Checked by us.</strong> Every pair is inspected before it is listed.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Secure packaging.</strong> Shoes are wrapped carefully for delivery.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Easy returns.</strong> Not the right fit? Send them back.</span></li>
+          </ul>
+        </div>
+        <div class="split-art reveal"><img src="images/shoe-6.svg" alt="A black Chelsea boot, hardly worn"></div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="cta reveal">
+          <div>
+            <h2>Get in touch</h2>
+            <p>Questions about a pair, sizing or selling? Email us at hello@example.com and we will get back to you.</p>
+          </div>
+          <div class="actions">
+            <a class="btn light" href="mailto:hello@example.com">Email us</a>
+            <a class="btn ghost" href="shop.html">Browse the shop</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="inner">
-      <div>
-        <strong>Shoe Closet</strong>
-        <p>Pre-loved shoes, checked and ready for a second life.</p>
-        <p>Contact: hello@example.com (placeholder)</p>
+  <footer class="site-footer" style="margin-top:0">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17v-6c0-1 .8-1.7 1.8-1.6l3.6.4c1.6 1.8 3.6 2.8 6 3.2l4.6.9c2 .4 2.4 3.1.4 3.1z"/></svg></span>Shoe Finder</a>
+          <p>Pre-loved shoes, checked and ready for a second life.</p>
+        </div>
+        <div>
+          <h3>Shop</h3>
+          <ul>
+            <li><a href="shop.html">All shoes</a></li>
+            <li><a href="shop.html?category=Trainers">Trainers</a></li>
+            <li><a href="shop.html?category=Boots">Boots</a></li>
+            <li><a href="shop.html?category=Heels">Heels</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Shoe Finder</h3>
+          <ul>
+            <li><a href="sell.html">Sell your shoes</a></li>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="mailto:hello@example.com">hello@example.com</a></li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <a href="index.html">Home</a><a href="shop.html">Shop</a><a href="sell.html">Sell</a><a href="about.html">About</a>
-        <p>&copy; 2026 Shoe Closet</p>
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Shoe Finder</span>
+        <span>Pre-loved and brand new shoes</span>
       </div>
     </div>
   </footer>
 
   <script src="shoes.js"></script>
+  <script src="site.js"></script>
 </body>
 </html>
