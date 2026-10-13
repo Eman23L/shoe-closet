@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop - Shoe Closet</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="logo" href="index.html">Shoe Closet</a>
+      <ul>
+        <li><a class="link" href="index.html">Home</a></li>
+        <li><a class="link active" href="shop.html">Shop</a></li>
+        <li><a class="link" href="sell.html">Sell</a></li>
+        <li><a class="link" href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h1 class="page-title">Shop</h1>
+    <div class="shop">
+      <aside class="filters" aria-label="Filters">
+        <h3>Filters</h3>
+        <fieldset>
+          <legend>Category</legend>
+          <select id="f-category"></select>
+        </fieldset>
+        <fieldset>
+          <legend>Brand</legend>
+          <div id="f-brands"></div>
+        </fieldset>
+        <fieldset>
+          <legend>Size</legend>
+          <select id="f-size"></select>
+        </fieldset>
+        <fieldset>
+          <legend>Max price: <span id="f-price-label"></span></legend>
+          <input type="range" id="f-price" min="0" max="100" step="1" value="100">
+        </fieldset>
+        <fieldset>
+          <legend>Condition</legend>
+          <div id="f-conditions"></div>
+        </fieldset>
+        <button type="button" id="f-reset">Clear filters</button>
+      </aside>
+
+      <section>
+        <div class="sortbar">
+          <span id="count"></span>
+          <label>Sort by
+            <select id="sort">
+              <option value="">Newest first</option>
+              <option value="low">Price: low to high</option>
+              <option value="high">Price: high to low</option>
+            </select>
+          </label>
+        </div>
+        <div id="grid" class="grid"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <div>
+        <strong>Shoe Closet</strong>
+        <p>Pre-loved shoes, checked and ready for a second life.</p>
+        <p>Contact: hello@example.com (placeholder)</p>
+      </div>
+      <div>
+        <a href="index.html">Home</a><a href="shop.html">Shop</a><a href="sell.html">Sell</a><a href="about.html">About</a>
+        <p>&copy; 2026 Shoe Closet</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="shoes.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

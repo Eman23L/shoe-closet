@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sell a shoe - Shoe Closet</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="logo" href="index.html">Shoe Closet</a>
+      <ul>
+        <li><a class="link" href="index.html">Home</a></li>
+        <li><a class="link" href="shop.html">Shop</a></li>
+        <li><a class="link active" href="sell.html">Sell</a></li>
+        <li><a class="link" href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h1 class="page-title">Sell a shoe</h1>
+    <p>Fill in the form to make a shoe entry. Nothing is saved automatically: copy the entry into <code>shoes.js</code>.</p>
+    <form id="form" class="add-form">
+      <label>Name <input id="f-name" required placeholder="e.g. Runner Pro 2, White"></label>
+      <label>Brand <input id="f-brand" placeholder="e.g. Stride"></label>
+      <label>Category
+        <select id="f-category">
+          <option>Trainers</option>
+          <option>Boots</option>
+          <option>Heels</option>
+          <option>Sandals</option>
+          <option>Kids</option>
+        </select>
+      </label>
+      <label>Sizes (separate with commas) <input id="f-size" placeholder="e.g. UK 7, UK 8"></label>
+      <label>Colour <input id="f-colour"></label>
+      <label>Condition
+        <select id="f-condition">
+          <option>New</option>
+          <option>Like new</option>
+          <option>Good</option>
+          <option>Used</option>
+        </select>
+      </label>
+      <label>Price in pounds <input id="f-price" type="number" min="0" step="1" placeholder="e.g. 40"></label>
+      <label>Description <textarea id="f-desc" rows="3"></textarea></label>
+      <label>Photo file name <input id="f-image" placeholder="e.g. images/trainers.jpg (optional)"></label>
+      <label class="check"><input id="f-featured" type="checkbox"> Show on the home page (featured)</label>
+      <button class="btn" type="submit">Make the shoe entry</button>
+    </form>
+
+    <div id="result" hidden>
+      <h2>Your shoe entry</h2>
+      <p>Copy this, then paste it into shoes.js just before the final <code>];</code>, and add a comma after the closing brace of the shoe before it.</p>
+      <textarea id="output" rows="16" readonly></textarea>
+      <button class="btn" id="copy" type="button">Copy to clipboard</button>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <div>
+        <strong>Shoe Closet</strong>
+        <p>Pre-loved shoes, checked and ready for a second life.</p>
+        <p>Contact: hello@example.com (placeholder)</p>
+      </div>
+      <div>
+        <a href="index.html">Home</a><a href="shop.html">Shop</a><a href="sell.html">Sell</a><a href="about.html">About</a>
+        <p>&copy; 2026 Shoe Closet</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="shoes.js"></script>
+  <script src="add.js"></script>
+</body>
+</html>

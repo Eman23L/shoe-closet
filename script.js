@@ -1,25 +1,6 @@
-// Builds the shoe cards from shoes.js and handles the detail panel.
+// Builds shoe cards from shoes.js for the home page (#featured) and the shop page (#grid).
 // The owner does not need to edit this file.
 
-var grid = document.getElementById("grid");
-var overlay = document.getElementById("overlay");
-
-// Put a photo in a box, or show a placeholder if there is no photo.
-function fillPhoto(box, shoe) {
-  box.innerHTML = "";
-  if (shoe.image) {
-    var img = document.createElement("img");
-    img.src = shoe.image;
-    img.alt = shoe.name;
-    // If the file is missing, fall back to the placeholder text.
-    img.onerror = function () { box.textContent = "No photo"; };
-    box.appendChild(img);
-  } else {
-    box.textContent = "No photo";
-  }
-}
-
-// Make a small helper for creating elements with text.
 function el(tag, className, text) {
   var e = document.createElement(tag);
   if (className) e.className = className;
@@ -27,55 +8,136 @@ function el(tag, className, text) {
   return e;
 }
 
-// Build one card per shoe.
-shoes.forEach(function (shoe) {
-  var card = el("button", "card");
-  card.type = "button";
+function makeCard(shoe) {
+  var card = el("a", "card");
+  card.href = "product.html?id=" + encodeURIComponent(shoe.id);
 
   var photo = el("div", "photo");
-  fillPhoto(photo, shoe);
+  var img = document.createElement("img");
+  img.src = shoe.image;
+  img.alt = shoe.name;
+  img.onerror = function () { photo.textContent = "No photo"; };
+  photo.appendChild(img);
   card.appendChild(photo);
 
   card.appendChild(el("h3", "", shoe.name));
   card.appendChild(el("p", "brand", shoe.brand));
-  card.appendChild(el("p", "", "Size: " + shoe.size));
-  card.appendChild(el("p", "", "Condition: " + shoe.condition));
-  card.appendChild(el("p", "price", shoe.price));
-
-  card.addEventListener("click", function () { openDetail(shoe); });
-  grid.appendChild(card);
-});
-
-if (shoes.length === 0) {
-  grid.appendChild(el("p", "", "No shoes listed yet."));
+  card.appendChild(el("p", "", shoe.sizes.join(", ") + " | " + shoe.condition));
+  card.appendChild(el("p", "price", "\u00A3" + shoe.price));
+  return card;
 }
 
-// Show the detail panel for one shoe.
-function openDetail(shoe) {
-  fillPhoto(document.getElementById("d-photo"), shoe);
-  document.getElementById("d-name").textContent = shoe.name;
-  document.getElementById("d-price").textContent = shoe.price;
-  document.getElementById("d-desc").textContent = shoe.description;
+function showCards(container, list) {
+  container.innerHTML = "";
+  if (list.length === 0) {
+    container.appendChild(el("p", "empty", "No shoes match. Try clearing some filters."));
+    return;
+  }
+  list.forEach(function (s) { container.appendChild(makeCard(s)); });
+}
 
-  var info = document.getElementById("d-info");
-  info.innerHTML = "";
-  [["Brand", shoe.brand], ["Size", shoe.size], ["Colour", shoe.colour],
-   ["Condition", shoe.condition]].forEach(function (pair) {
-    info.appendChild(el("dt", "", pair[0]));
-    info.appendChild(el("dd", "", pair[1]));
+// Unique sorted values of a list.
+function unique(list) {
+  return list.filter(function (v, i) { return list.indexOf(v) === i; });
+}
+
+/* ---------- Home page ---------- */
+var featured = document.getElementById("featured");
+if (featured) {
+  showCards(featured, shoes.filter(function (s) { return s.featured; }).slice(0, 8));
+}
+
+/* ---------- Shop page ---------- */
+var grid = document.getElementById("grid");
+if (grid) {
+  var catSel = document.getElementById("f-category");
+  var sizeSel = document.getElementById("f-size");
+  var priceRange = document.getElementById("f-price");
+  var priceLabel = document.getElementById("f-price-label");
+  var sortSel = document.getElementById("sort");
+  var brandBox = document.getElementById("f-brands");
+  var condBox = document.getElementById("f-conditions");
+
+  function addOption(select, value, text) {
+    var o = document.createElement("option");
+    o.value = value;
+    o.textContent = text;
+    select.appendChild(o);
+  }
+
+  function addCheckbox(box, value) {
+    var label = document.createElement("label");
+    var cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.value = value;
+    cb.addEventListener("change", update);
+    label.appendChild(cb);
+    label.appendChild(document.createTextNode(" " + value));
+    box.appendChild(label);
+  }
+
+  function checked(box) {
+    var out = [];
+    box.querySelectorAll("input:checked").forEach(function (c) { out.push(c.value); });
+    return out;
+  }
+
+  // Fill the filter controls from the data.
+  addOption(catSel, "", "All categories");
+  ["Trainers", "Boots", "Heels", "Sandals", "Kids"].forEach(function (c) { addOption(catSel, c, c); });
+
+  unique(shoes.map(function (s) { return s.brand; })).sort().forEach(function (b) { addCheckbox(brandBox, b); });
+
+  var allSizes = [];
+  shoes.forEach(function (s) { allSizes = allSizes.concat(s.sizes); });
+  allSizes = unique(allSizes).sort(function (a, b) { return parseFloat(a.replace(/\D+/, "")) - parseFloat(b.replace(/\D+/, "")); });
+  addOption(sizeSel, "", "Any size");
+  allSizes.forEach(function (s) { addOption(sizeSel, s, s); });
+
+  ["New", "Like new", "Good", "Used"].forEach(function (c) { addCheckbox(condBox, c); });
+
+  var maxPrice = Math.max.apply(null, shoes.map(function (s) { return s.price; }));
+  priceRange.max = maxPrice;
+  priceRange.value = maxPrice;
+
+  // Home page category tiles link here with ?category=Boots
+  var wanted = new URLSearchParams(window.location.search).get("category");
+  if (wanted) catSel.value = wanted;
+
+  function update() {
+    priceLabel.textContent = "\u00A3" + priceRange.value;
+    var brands = checked(brandBox);
+    var conds = checked(condBox);
+
+    var list = shoes.filter(function (s) {
+      if (catSel.value && s.category !== catSel.value) return false;
+      if (brands.length && brands.indexOf(s.brand) === -1) return false;
+      if (sizeSel.value && s.sizes.indexOf(sizeSel.value) === -1) return false;
+      if (s.price > Number(priceRange.value)) return false;
+      if (conds.length && conds.indexOf(s.condition) === -1) return false;
+      return true;
+    });
+
+    if (sortSel.value === "low") list.sort(function (a, b) { return a.price - b.price; });
+    else if (sortSel.value === "high") list.sort(function (a, b) { return b.price - a.price; });
+    else list.sort(function (a, b) { return b.id - a.id; });
+
+    document.getElementById("count").textContent = list.length + (list.length === 1 ? " shoe" : " shoes");
+    showCards(grid, list);
+  }
+
+  catSel.addEventListener("change", update);
+  sizeSel.addEventListener("change", update);
+  priceRange.addEventListener("input", update);
+  sortSel.addEventListener("change", update);
+  document.getElementById("f-reset").addEventListener("click", function () {
+    catSel.value = "";
+    sizeSel.value = "";
+    sortSel.value = "";
+    priceRange.value = maxPrice;
+    document.querySelectorAll(".filters input[type=checkbox]").forEach(function (c) { c.checked = false; });
+    update();
   });
 
-  overlay.hidden = false;
+  update();
 }
-
-function closeDetail() { overlay.hidden = true; }
-
-document.getElementById("close").addEventListener("click", closeDetail);
-// Clicking the dark area outside the panel also closes it.
-overlay.addEventListener("click", function (e) {
-  if (e.target === overlay) closeDetail();
-});
-// So does the Escape key.
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Escape") closeDetail();
-});

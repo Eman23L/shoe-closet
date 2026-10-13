@@ -3,32 +3,55 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shoe Closet</title>
+  <title>Shoe Closet - pre-loved shoes</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Shoe Closet</h1>
-    <p>Shoes currently available</p>
-    <p><a href="add.html">Add your own shoe</a></p>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="logo" href="index.html">Shoe Closet</a>
+      <ul>
+        <li><a class="link active" href="index.html">Home</a></li>
+        <li><a class="link" href="shop.html">Shop</a></li>
+        <li><a class="link" href="sell.html">Sell</a></li>
+        <li><a class="link" href="about.html">About</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main>
-    <!-- Shoe cards are added here by script.js -->
-    <div id="grid" class="grid"></div>
+  <section class="hero">
+    <h1>Pre-loved shoes, fresh colours</h1>
+    <p>Trainers, boots, heels and more at friendly prices.</p>
+    <a class="btn light" href="shop.html">Shop now</a>
+  </section>
+
+  <main class="wrap">
+    <h2 class="section">Shop by category</h2>
+    <div class="tiles">
+      <a class="tile" href="shop.html?category=Trainers">Trainers</a>
+      <a class="tile" href="shop.html?category=Boots">Boots</a>
+      <a class="tile" href="shop.html?category=Heels">Heels</a>
+      <a class="tile" href="shop.html?category=Sandals">Sandals</a>
+      <a class="tile" href="shop.html?category=Kids">Kids</a>
+    </div>
+
+    <h2 class="section">Featured shoes</h2>
+    <div id="featured" class="grid"></div>
   </main>
 
-  <!-- Detail panel: hidden until a card is clicked -->
-  <div id="overlay" class="overlay" hidden>
-    <div class="panel" role="dialog" aria-modal="true" aria-labelledby="d-name">
-      <button id="close" class="close" aria-label="Close">&times;</button>
-      <div id="d-photo" class="photo big"></div>
-      <h2 id="d-name"></h2>
-      <p id="d-price" class="price"></p>
-      <dl id="d-info"></dl>
-      <p id="d-desc"></p>
+  <footer class="site-footer">
+    <div class="inner">
+      <div>
+        <strong>Shoe Closet</strong>
+        <p>Pre-loved shoes, checked and ready for a second life.</p>
+        <p>Contact: hello@example.com (placeholder)</p>
+      </div>
+      <div>
+        <a href="index.html">Home</a><a href="shop.html">Shop</a><a href="sell.html">Sell</a><a href="about.html">About</a>
+        <p>&copy; 2026 Shoe Closet</p>
+      </div>
     </div>
-  </div>
+  </footer>
 
   <script src="shoes.js"></script>
   <script src="script.js"></script>
