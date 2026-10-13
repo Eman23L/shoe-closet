@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add a shoe - Shoe Closet</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Add a shoe</h1>
+    <p><a href="index.html">Back to the shoe list</a></p>
+  </header>
+
+  <main>
+    <form id="form" class="add-form">
+      <label>Name <input id="f-name" required></label>
+      <label>Brand <input id="f-brand"></label>
+      <label>Size <input id="f-size" placeholder="e.g. UK 9"></label>
+      <label>Colour <input id="f-colour"></label>
+      <label>Condition
+        <select id="f-condition">
+          <option>New</option>
+          <option>Like new</option>
+          <option>Good</option>
+          <option>Used</option>
+        </select>
+      </label>
+      <label>Price <input id="f-price" placeholder="e.g. £40"></label>
+      <label>Description <textarea id="f-desc" rows="3"></textarea></label>
+      <label>Photo file name <input id="f-image" placeholder="e.g. images/trainers.jpg (optional)"></label>
+      <button type="submit">Make the shoe entry</button>
+    </form>
+
+    <div id="result" hidden>
+      <h2>Your shoe entry</h2>
+      <p>Copy this, then paste it into shoes.js just before the final <code>];</code>, and add a comma after the closing brace of the shoe before it.</p>
+      <textarea id="output" rows="16" readonly></textarea>
+      <button id="copy" type="button">Copy to clipboard</button>
+    </div>
+  </main>
+
+  <script src="shoes.js"></script>
+  <script src="add.js"></script>
+</body>
+</html>
