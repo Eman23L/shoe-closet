@@ -1,0 +1,101 @@
+/* Simple, responsive styling. No external files needed. */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f3ef;
+  color: #222;
+}
+
+header {
+  text-align: center;
+  padding: 28px 16px 12px;
+}
+header h1 { margin: 0; font-size: 2rem; }
+header p { margin: 6px 0 0; color: #666; }
+
+main { max-width: 1100px; margin: 0 auto; padding: 16px; }
+
+/* Cards flow into as many columns as fit the screen */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.card:hover, .card:focus {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+.card h3 { margin: 10px 0 4px; font-size: 1.05rem; }
+.card p { margin: 3px 0; font-size: 0.9rem; }
+.brand { color: #666; }
+.price { font-weight: bold; font-size: 1.1rem; color: #1a6b3a; }
+
+/* Photo box (placeholder text shows when there is no image) */
+.photo {
+  height: 160px;
+  background: #e4e1db;
+  color: #888;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.photo img { width: 100%; height: 100%; object-fit: cover; }
+.photo.big { height: 260px; }
+
+/* Detail panel */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.overlay[hidden] { display: none; }
+
+.panel {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.panel h2 { margin: 14px 0 4px; }
+.close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  z-index: 1;
+  border: none;
+  background: #fff;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; margin: 12px 0; }
+dt { font-weight: bold; color: #555; }
+dd { margin: 0; }
