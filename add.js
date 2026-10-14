@@ -4,6 +4,7 @@
 var form = document.getElementById("form");
 var result = document.getElementById("result");
 var output = document.getElementById("output");
+var copied = document.getElementById("copied");
 
 // Escape quote marks and backslashes so the text is safe inside "..." in shoes.js.
 function clean(text) {
@@ -45,11 +46,14 @@ form.addEventListener("submit", function (e) {
 
   output.value = block;
   result.hidden = false;
+  if (copied) copied.textContent = "";
+  result.scrollIntoView({ behavior: "smooth", block: "start" });
   output.select();
 });
 
 document.getElementById("copy").addEventListener("click", function () {
   output.select();
-  if (navigator.clipboard) navigator.clipboard.writeText(output.value);
-  else document.execCommand("copy");
+  var done = function () { if (copied) copied.textContent = "Copied"; };
+  if (navigator.clipboard) navigator.clipboard.writeText(output.value).then(done, function () { document.execCommand("copy"); done(); });
+  else { document.execCommand("copy"); done(); }
 });

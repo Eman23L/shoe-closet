@@ -1,42 +1,6 @@
-// Builds shoe cards from shoes.js for the home page (#featured) and the shop page (#grid).
-// The owner does not need to edit this file.
+// Builds the home page (#featured, stats) and the shop page (#grid with filters) from shoes.js.
+// Needs site.js loaded first. The owner does not need to edit this file.
 
-function el(tag, className, text) {
-  var e = document.createElement(tag);
-  if (className) e.className = className;
-  if (text !== undefined) e.textContent = text;
-  return e;
-}
-
-function makeCard(shoe) {
-  var card = el("a", "card");
-  card.href = "product.html?id=" + encodeURIComponent(shoe.id);
-
-  var photo = el("div", "photo");
-  var img = document.createElement("img");
-  img.src = shoe.image;
-  img.alt = shoe.name;
-  img.onerror = function () { photo.textContent = "No photo"; };
-  photo.appendChild(img);
-  card.appendChild(photo);
-
-  card.appendChild(el("h3", "", shoe.name));
-  card.appendChild(el("p", "brand", shoe.brand));
-  card.appendChild(el("p", "", shoe.sizes.join(", ") + " | " + shoe.condition));
-  card.appendChild(el("p", "price", "\u00A3" + shoe.price));
-  return card;
-}
-
-function showCards(container, list) {
-  container.innerHTML = "";
-  if (list.length === 0) {
-    container.appendChild(el("p", "empty", "No shoes match. Try clearing some filters."));
-    return;
-  }
-  list.forEach(function (s) { container.appendChild(makeCard(s)); });
-}
-
-// Unique sorted values of a list.
 function unique(list) {
   return list.filter(function (v, i) { return list.indexOf(v) === i; });
 }
@@ -45,6 +9,19 @@ function unique(list) {
 var featured = document.getElementById("featured");
 if (featured) {
   showCards(featured, shoes.filter(function (s) { return s.featured; }).slice(0, 8));
+
+  var statPairs = document.getElementById("stat-pairs");
+  var statBrands = document.getElementById("stat-brands");
+  var statFrom = document.getElementById("stat-from");
+  if (statPairs) statPairs.textContent = shoes.length;
+  if (statBrands) statBrands.textContent = unique(shoes.map(function (s) { return s.brand; })).length;
+  if (statFrom && shoes.length) statFrom.textContent = "£" + Math.min.apply(null, shoes.map(function (s) { return s.price; }));
+
+  // "12 pairs" under each category tile
+  document.querySelectorAll("[data-count]").forEach(function (node) {
+    var n = shoes.filter(function (s) { return s.category === node.getAttribute("data-count"); }).length;
+    node.textContent = n + (n === 1 ? " pair" : " pairs");
+  });
 }
 
 /* ---------- Shop page ---------- */
@@ -72,7 +49,7 @@ if (grid) {
     cb.value = value;
     cb.addEventListener("change", update);
     label.appendChild(cb);
-    label.appendChild(document.createTextNode(" " + value));
+    label.appendChild(document.createTextNode(value));
     box.appendChild(label);
   }
 
@@ -82,7 +59,6 @@ if (grid) {
     return out;
   }
 
-  // Fill the filter controls from the data.
   addOption(catSel, "", "All categories");
   ["Trainers", "Boots", "Heels", "Sandals", "Kids"].forEach(function (c) { addOption(catSel, c, c); });
 
@@ -105,7 +81,7 @@ if (grid) {
   if (wanted) catSel.value = wanted;
 
   function update() {
-    priceLabel.textContent = "\u00A3" + priceRange.value;
+    priceLabel.textContent = "£" + priceRange.value;
     var brands = checked(brandBox);
     var conds = checked(condBox);
 
@@ -123,6 +99,8 @@ if (grid) {
     else list.sort(function (a, b) { return b.id - a.id; });
 
     document.getElementById("count").textContent = list.length + (list.length === 1 ? " shoe" : " shoes");
+    var title = document.getElementById("shop-title");
+    if (title) title.textContent = catSel.value ? catSel.value : "All shoes";
     showCards(grid, list);
   }
 
@@ -138,6 +116,17 @@ if (grid) {
     document.querySelectorAll(".filters input[type=checkbox]").forEach(function (c) { c.checked = false; });
     update();
   });
+
+  // Show / hide filters on phones
+  var toggle = document.getElementById("filter-toggle");
+  var panel = document.getElementById("filters");
+  if (toggle && panel) {
+    toggle.addEventListener("click", function () {
+      var open = panel.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.lastChild.textContent = open ? " Hide filters" : " Show filters";
+    });
+  }
 
   update();
 }

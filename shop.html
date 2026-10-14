@@ -1,34 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shop - Shoe Closet</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2712%27 fill=%27%23b9400f%27/%3E%3C/svg%3E">
+  <title>Shop all shoes | Shoe Closet</title>
+  <meta name="description" content="Browse pre-loved and brand new shoes and filter by category, brand, size, price and condition.">
   <meta name="theme-color" content="#faf8f5">
-  <meta name="description" content="Browse pre-loved shoes and filter by brand, size, price and condition.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Shop all shoes | Shoe Closet">
+  <meta property="og:description" content="Trainers, boots, heels, sandals and kids shoes, checked by hand and priced fairly.">
+  <meta property="og:image" content="images/shoe-1.svg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23b9400f'/%3E%3Cpath d='M6 21v-6l5 1c3 2 6 3 10 3.5 3 .4 5 1.2 5 2.5H6z' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
+
   <header class="site-header">
-    <nav class="nav">
-      <a class="logo" href="index.html">Shoe Closet</a>
-      <ul>
+    <nav class="nav container" aria-label="Main">
+      <a class="logo" href="index.html">
+        <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z"/><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z"/><path d="M16 17h4"/><path d="M4 13h4"/></svg></span>
+        Shoe Closet
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <ul class="nav-links" id="nav-links">
         <li><a class="link" href="index.html">Home</a></li>
-        <li><a class="link active" href="shop.html">Shop</a></li>
+        <li><a class="link active" href="shop.html" aria-current="page">Shop</a></li>
         <li><a class="link" href="sell.html">Sell</a></li>
         <li><a class="link" href="about.html">About</a></li>
+        <li class="nav-cta"><a class="btn" href="sell.html">Sell a pair</a></li>
       </ul>
     </nav>
   </header>
 
-  <main class="wrap">
-    <h1 class="page-title">Shop</h1>
-    <div class="shop">
-      <aside class="filters" aria-label="Filters">
-        <h3>Filters</h3>
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <p class="crumbs"><a href="index.html">Home</a> / Shop</p>
+        <h1 id="shop-title">All shoes</h1>
+        <p>Every pair is checked by hand before it is listed. Filter by brand, size, price and condition to find your fit.</p>
+      </div>
+    </section>
+
+    <div class="container shop">
+      <aside class="filters" id="filters" aria-label="Filters">
+        <div class="filters-head">
+          <h2>Filters</h2>
+          <button type="button" id="f-reset" class="reset-btn">Clear all</button>
+        </div>
         <fieldset>
-          <legend>Category</legend>
+          <legend><label for="f-category">Category</label></legend>
           <select id="f-category"></select>
         </fieldset>
         <fieldset>
@@ -36,24 +60,24 @@
           <div id="f-brands"></div>
         </fieldset>
         <fieldset>
-          <legend>Size</legend>
+          <legend><label for="f-size">Size</label></legend>
           <select id="f-size"></select>
         </fieldset>
         <fieldset>
-          <legend>Max price: <span id="f-price-label"></span></legend>
+          <legend><label for="f-price">Max price</label> <span id="f-price-label" class="price-value"></span></legend>
           <input type="range" id="f-price" min="0" max="100" step="1" value="100">
         </fieldset>
         <fieldset>
           <legend>Condition</legend>
           <div id="f-conditions"></div>
         </fieldset>
-        <button type="button" id="f-reset">Clear filters</button>
       </aside>
 
-      <section>
+      <section aria-label="Shoes">
         <div class="sortbar">
-          <span id="count"></span>
-          <label>Sort by
+          <button type="button" class="btn secondary filter-toggle" id="filter-toggle" aria-expanded="false" aria-controls="filters"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg> Show filters</button>
+          <span id="count" aria-live="polite"></span>
+          <label for="sort">Sort by
             <select id="sort">
               <option value="">Newest first</option>
               <option value="low">Price: low to high</option>
@@ -61,26 +85,47 @@
             </select>
           </label>
         </div>
-        <div id="grid" class="grid"></div>
+        <div id="grid" class="grid three"></div>
       </section>
     </div>
   </main>
 
   <footer class="site-footer">
-    <div class="inner">
-      <div>
-        <strong>Shoe Closet</strong>
-        <p>Pre-loved shoes, checked and ready for a second life.</p>
-        <p>Contact: hello@example.com (placeholder)</p>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="logo" href="index.html">Shoe Closet</a>
+          <p>Pre-loved shoes, checked and ready for a second life.</p>
+        </div>
+        <div>
+          <h3>Shop</h3>
+          <ul>
+            <li><a href="shop.html">All shoes</a></li>
+            <li><a href="shop.html?category=Trainers">Trainers</a></li>
+            <li><a href="shop.html?category=Boots">Boots</a></li>
+            <li><a href="shop.html?category=Heels">Heels</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Shoe Closet</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sell.html">Sell</a></li>
+            <li><a href="about.html">About</a></li>
+            <!-- Replace hello@example.com with the real shop email -->
+            <li><a href="mailto:hello@example.com">hello@example.com</a></li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <a href="index.html">Home</a><a href="shop.html">Shop</a><a href="sell.html">Sell</a><a href="about.html">About</a>
-        <p>&copy; 2026 Shoe Closet</p>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> Shoe Closet. All rights reserved.</span>
+        <span>Every pair checked by hand.</span>
       </div>
     </div>
   </footer>
 
   <script src="shoes.js"></script>
+  <script src="site.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
